@@ -1,16 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
+// import controller
+const projectController = require("../controllers/projectController");
 
 module.exports = function() {
-    // ruta para el home
-    router.get("/", (request, response) => {
-        response.send("Index");
-    })
+    // home route
+    router.get("/", projectController.projectsHome  )
 
-    router.get("/nosotros", (request, response) => {
-        response.send("Nosotros");
-    })
+    router.get("/nosotros", projectController.us)
 
     return router;
 }
