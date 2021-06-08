@@ -1,7 +1,11 @@
 exports.projectsHome = (request, response) => {
-    response.render("index");
+    response.render("index", {
+        pageName: "Proyectos"
+    });
 }
 
-exports.us = (request, response) => {
-    response.send("Nosotros");
+exports.newProject = (request, response) => {
+    response.render("newProject", {
+        pageName: "Nuevo proyecto"
+    });
 }

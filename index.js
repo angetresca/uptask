@@ -5,6 +5,9 @@ const path = require("path");
 // Create express app
 const app = express();
 
+// Static files
+app.use(express.static("public"));
+
 // Port
 app.listen(3000);
 
