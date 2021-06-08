@@ -3,6 +3,15 @@ const routes = require("./routes");
 const path = require("path");
 const bodyParser = require("body-parser");
 
+// DB connection
+const db = require("./config/db");
+ 
+require("./models/Projects");  // model import
+ 
+db.sync()
+    .then(()=> console.log("Conectado al server"))
+    .catch(error => console.log(error))
+
 // Create express app
 const app = express();
 
