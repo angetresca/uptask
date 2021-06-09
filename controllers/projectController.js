@@ -1,8 +1,11 @@
 const Projects = require("../models/Projects");
 
-exports.projectsHome = (request, response) => {
+exports.projectsHome = async (request, response) => {
+    const projects = await Projects.findAll();
+
     response.render("index", {
-        pageName: "Proyectos"
+        pageName: "Proyectos",
+        projects
     });
 }
 
@@ -30,7 +33,6 @@ exports.newProject = async (req, res) => {
             errors
         });
     } else {
-        // TODO: insert in database
         const project = await Projects.create({ name });
         res.redirect("/");
     }
