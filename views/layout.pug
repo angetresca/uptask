@@ -20,9 +20,11 @@ html(lang="en")
                 .panel.lista-proyectos
                     h2 Proyectos
                     ul#proyectos.proyectos
-                        if(projects.length)
+                        if(projects && projects.length)
                             each project in projects
                                 li
-                                    a(href="#")= project.name
+                                    a(href=`/projects/${project.url}`)= project.name
 
             block contenido
+            
+            //pre= vardump(projects)

@@ -14,8 +14,11 @@ module.exports = function() {
 
     router.post("/new-project", 
         body("name").not().isEmpty().trim().escape(), 
-        projectController.newProject)
+        projectController.newProject
+    );
 
+    // Projects routes
+    router.get("/projects/:url", projectController.projectByUrl);
     return router;
 }
 

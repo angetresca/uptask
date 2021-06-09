@@ -9,14 +9,17 @@ exports.projectsHome = async (request, response) => {
     });
 }
 
-exports.newProjectForm = (req, res) => {
+exports.newProjectForm = async (req, res) => {
+    const projects = await Projects.findAll();
     res.render("newProject", {
-        pageName: "Nuevo proyecto"
+        pageName: "Nuevo proyecto",
+        projects
     });
 }
 
 exports.newProject = async (req, res) => {
     // console.log(request.body); prints in node console
+    const projects = await Projects.findAll();
 
     // validate that data was sent
     const { name } = req.body;
@@ -30,11 +33,29 @@ exports.newProject = async (req, res) => {
     if (errors.length > 0) {
         res.render("newProject", {
             pageName: "Nuevo proyecto",
-            errors
+            errors,
+            projects
         });
     } else {
         const project = await Projects.create({ name });
         res.redirect("/");
     }
+
+}
+
+exports.projectByUrl = async (req, res) => {
+    const projects = await Projects.findAll();
+    const project = await Projects.findOne({
+        where: {
+            url: req.params.url
+        }
+    });
+    if (!project) return next();
+
+    res.render("tasks", {
+        pageName: `Tareas del proyecto: ${project.name}`,
+        project,
+        projects
+    });
 
 }
