@@ -1,16 +1,18 @@
+const Projects = require("../models/Projects");
+
 exports.projectsHome = (request, response) => {
     response.render("index", {
         pageName: "Proyectos"
     });
 }
 
-exports.newProjectForm = (request, response) => {
-    response.render("newProject", {
+exports.newProjectForm = (req, res) => {
+    res.render("newProject", {
         pageName: "Nuevo proyecto"
     });
 }
 
-exports.newProject = (req, res) => {
+exports.newProject = async (req, res) => {
     // console.log(request.body); prints in node console
 
     // validate that data was sent
@@ -29,6 +31,8 @@ exports.newProject = (req, res) => {
         });
     } else {
         // TODO: insert in database
+        const project = await Projects.create({ name });
+        res.redirect("/");
     }
 
 }
