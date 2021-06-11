@@ -44,12 +44,16 @@ exports.newProject = async (req, res) => {
 }
 
 exports.projectByUrl = async (req, res) => {
-    const projects = await Projects.findAll();
-    const project = await Projects.findOne({
+    const projectsPromise = Projects.findAll();
+
+    const projectPromise = Projects.findOne({
         where: {
             url: req.params.url
         }
     });
+
+    const [projects, project] = await Promise.all([projectsPromise, projectPromise]);
+
     if (!project) return next();
 
     res.render("tasks", {
@@ -57,5 +61,60 @@ exports.projectByUrl = async (req, res) => {
         project,
         projects
     });
+
+}
+
+exports.editProjectForm = async (req, res) => {
+    const projectsPromise = Projects.findAll();
+
+    const projectPromise = Projects.findOne({
+        where: {
+            id: req.params.id
+        }
+    });
+
+    const [projects, project] = await Promise.all([projectsPromise, projectPromise]);
+
+    res.render("newProject", {
+        pageName: `Editar Proyecto: ${project.name}`,
+        projects,
+        project
+    })
+};
+
+exports.editProject = async (req, res) => {
+    const projectsPromise = Projects.findAll();
+
+    const projectPromise = Projects.findOne({
+        where: {
+            id: req.params.id
+        }
+    });
+
+    const [projects, project] = await Promise.all([projectsPromise, projectPromise]);
+
+    // validate that data was sent
+    const { name } = req.body;
+
+    let errors = [];
+    
+    if (!name) {
+        errors.push({"text": "Agrega un nombre al proyecto."});
+    }
+
+    if (errors.length > 0) {
+        res.render("newProject", {
+            pageName: `Editar proyecto: ${project.name}`,
+            errors,
+            projects,
+            project
+        });
+    } else {
+        await Projects.update(
+            { name },
+            {where: {id: req.params.id}}
+            );
+        res.redirect("/");
+    }
 
 }

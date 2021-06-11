@@ -19,6 +19,15 @@ module.exports = function() {
 
     // Projects routes
     router.get("/projects/:url", projectController.projectByUrl);
+
+    // Edit project
+    router.get("/project/edit/:id", projectController.editProjectForm);
+    router.post("/new-project/:id", 
+        body("name").not().isEmpty().trim().escape(), 
+        projectController.editProject
+    );
+
+
     return router;
 }
 

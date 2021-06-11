@@ -3,3 +3,13 @@ extends layout
 block contenido
     .contenido-principal
         h2 #{pageName}
+
+        // TODO: formulario
+
+        //TODO: listado de pendientes
+
+        // Actions
+        .contenedor-acciones    
+            a(href=`/project/edit/${project.id}` class="boton") Editar Proyecto
+            button#delete-project(type="button" class="boton eliminar") Eliminar Proyecto
+
