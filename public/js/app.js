@@ -1,2 +1,2 @@
-import tasks from "./modulos/projects";
+import projects from "./modulos/projects";
 
