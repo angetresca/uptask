@@ -18,25 +18,21 @@ if (btnDelete) {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Send request with axios
-                const url = `${location.origin}/${projectUrl}`;
-                axios.delete(url, {params: projectUrl})
-                .then((response)=> {
-
-                    console.log(response);
-
-                    return;
-                    Swal.fire(
-                        'Eliminado!',
-                        'El proyecto fue eliminado correctamente',
-                        'success'
-                    )
-                    setTimeout(() => {
-                        window.location.href = "/"
-                    }, 3000);
-                })
+                const url = `${location.origin}/projects/${projectUrl}`;
+                axios.delete(url, { params: {projectUrl} })
+                    .then((response)=> {
+                        Swal.fire(
+                            'Eliminado!',
+                            response.data,
+                            'success'
+                        )
+                        setTimeout(() => {
+                            window.location.href = "/"
+                        }, 3000);
+                    });
             }
             
-        })
+        });
     });
 }
 

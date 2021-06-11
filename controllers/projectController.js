@@ -118,3 +118,9 @@ exports.editProject = async (req, res) => {
     }
 
 }
+
+exports.deleteProject = async(req, res, next) => {
+    const {projectUrl} = req.query; // req.query or req.params
+    const result = await Projects.destroy({where: { url: projectUrl}});
+    res.send("Proyecto eliminado correctamente.")
+}
