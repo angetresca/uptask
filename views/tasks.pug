@@ -15,7 +15,21 @@ block contenido
             .campo.enviar
                 input.boton.nueva-tarea(type="submit" value="Agregar")
 
-        //TODO: listado de pendientes
+        .listado-pendientes
+            ul
+                if tasks.length
+                    each task in tasks
+                        li.tarea
+                            p= task.task
+                            .acciones
+                                if task.isCompleted
+                                    i.far.fa-check-circle.completo
+                                else
+                                    i.far.fa-check-circle
+                                i.fas.fa-trash
+                else
+                    p No hay tareas en este proyecto
+                            
 
         // Actions
         .contenedor-acciones    
