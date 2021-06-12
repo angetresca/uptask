@@ -1,26 +1,28 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import { updateProgress } from "../functions/progress";
 
 const tasks = document.querySelector(".listado-pendientes");
 
 if (tasks) {
     tasks.addEventListener("click", e => {
         const selected = e.target;
-        if(selected.classList.contains("fa-check-circle")) {
+        if (selected.classList.contains("fa-check-circle")) {
             const taskID = selected.parentElement.parentElement.dataset.taskId;
             const url = `${location.origin}/tasks/${taskID}`
-            axios.patch(url, {taskID})
-                .then((response)=> {
+            axios.patch(url, { taskID })
+                .then((response) => {
                     if (response.status === 200) {
                         selected.classList.toggle("completo");
+                        updateProgress();
                     }
                 })
         };
 
-        if(selected.classList.contains("fa-trash")) {
+        if (selected.classList.contains("fa-trash")) {
             const taskHTML = selected.parentElement.parentElement;
             const taskID = taskHTML.dataset.taskId;
-            
+
             Swal.fire({
                 title: '¿Deseas borrar esta tarea?',
                 text: "¡Una tarea eliminada no se puede recuperar!",
@@ -34,16 +36,17 @@ if (tasks) {
                 if (result.isConfirmed) {
                     // Send request with axios
                     const url = `${location.origin}/tasks/${taskID}`;
-                    axios.delete(url, { params: {taskID} })
-                        .then((response)=> {
+                    axios.delete(url, { params: { taskID } })
+                        .then((response) => {
                             Swal.fire(
                                 'Eliminada!',
                                 response.data,
                                 'success'
                             )
-                            taskHTML.remove()  
+                            taskHTML.remove()
+                            updateProgress()
                         })
-                        .catch(()=> {
+                        .catch(() => {
                             Swal.fire({
                                 icon: "error",
                                 title: "Hubo un error",
@@ -51,7 +54,7 @@ if (tasks) {
                             });
                         });
                 }
-                
+
             });
         };
     });
