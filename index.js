@@ -8,6 +8,7 @@ const helpers = require("./helpers");
 const db = require("./config/db");
  
 require("./models/Projects");  // model import
+require("./models/Tasks");  // model import
  
 db.sync()
     .then(()=> console.log("Conectado al server"))

@@ -4,7 +4,16 @@ block contenido
     .contenido-principal
         h2 #{pageName}
 
-        // TODO: formulario
+        if errors
+            each error in errors
+                .alerta #{error.text}
+
+        form.agregar-tarea(action=`/projects/${project.url}` method="POST")
+            .campo
+                label(for="task") Tarea:
+                input.nombre-tarea(type="text" name="task" placeholder="Nombre de la tarea")
+            .campo.enviar
+                input.boton.nueva-tarea(type="submit" value="Agregar")
 
         //TODO: listado de pendientes
 

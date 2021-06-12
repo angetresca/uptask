@@ -9,8 +9,8 @@ const Projects = db.define("projects", {
         primaryKey: true,
         autoIncrement: true,
     },
-    name: Sequelize.STRING,
-    url: Sequelize.STRING
+    name: Sequelize.STRING(100),
+    url: Sequelize.STRING(100)
 }, {
     hooks: {
         beforeCreate(project) {
