@@ -53,7 +53,7 @@ exports.changeTaskState = async (req, res, next) => {
 
 exports.deleteTask = async (req, res, next) => {
     const { id } = req.params;
-    const result = await Tasks.destroy({ where: { id: id } });
+    const result = await Tasks.destroy({ where: { id } });
 
     if (!result) {
         return next();

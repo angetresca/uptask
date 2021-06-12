@@ -41,9 +41,7 @@ if (tasks) {
                                 response.data,
                                 'success'
                             )
-                            setTimeout(() => {
-                                taskHTML.remove()
-                            }, 1000);
+                            taskHTML.remove()  
                         })
                         .catch(()=> {
                             Swal.fire({
