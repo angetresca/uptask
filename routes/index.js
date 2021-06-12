@@ -31,11 +31,17 @@ module.exports = function () {
     // Delete project
     router.delete("/projects/:url", projectController.deleteProject);
 
-    // Tasks
+    // Create new task
     router.post("/projects/:url",
         body("task").not().isEmpty().trim().escape(),
         taskController.newTask
     );
+    // Change task state
+    router.patch("/tasks/:id", taskController.changeTaskState)
+
+    // Delete task
+    router.delete("/tasks/:id", taskController.deleteTask)
+
 
 
     return router;

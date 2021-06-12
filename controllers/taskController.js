@@ -16,9 +16,9 @@ exports.newTask = async (req, res, next) => {
     const { task } = req.body;
 
     let errors = [];
-    
+
     if (!task) {
-        errors.push({"text": "Agrega una tarea."});
+        errors.push({ "text": "Agrega una tarea." });
     }
 
     if (errors.length > 0) {
@@ -32,11 +32,32 @@ exports.newTask = async (req, res, next) => {
         const projectId = project.id;
         const result = await Tasks.create({ task, isCompleted, projectId });
 
-        if (!result) {
-            return next();
-        }
+        if (!result) { return next() }
 
         res.redirect(`/projects/${project.url}`);
     }
+}
 
+exports.changeTaskState = async (req, res, next) => {
+    const { id } = req.params;
+    const task = await Tasks.findOne({ where: { id } });
+
+    task.isCompleted = !task.isCompleted;
+
+    const result = await task.save();
+
+    if (!result) { return next() }
+
+    res.status(200).send("Actualizado");
+}
+
+exports.deleteTask = async (req, res, next) => {
+    const { id } = req.params;
+    const result = await Tasks.destroy({ where: { id: id } });
+
+    if (!result) {
+        return next();
+    }
+
+    res.status(200).send("Tarea eliminada correctamente.");
 }

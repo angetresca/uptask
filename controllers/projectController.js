@@ -26,9 +26,9 @@ exports.newProject = async (req, res) => {
     const { name } = req.body;
 
     let errors = [];
-    
+
     if (!name) {
-        errors.push({"text": "Agrega un nombre al proyecto."});
+        errors.push({ "text": "Agrega un nombre al proyecto." });
     }
 
     if (errors.length > 0) {
@@ -105,9 +105,9 @@ exports.editProject = async (req, res) => {
     const { name } = req.body;
 
     let errors = [];
-    
+
     if (!name) {
-        errors.push({"text": "Agrega un nombre al proyecto."});
+        errors.push({ "text": "Agrega un nombre al proyecto." });
     }
 
     if (errors.length > 0) {
@@ -120,20 +120,20 @@ exports.editProject = async (req, res) => {
     } else {
         await Projects.update(
             { name },
-            {where: {id: req.params.id}}
-            );
+            { where: { id: req.params.id } }
+        );
         res.redirect("/");
     }
 
 }
 
-exports.deleteProject = async(req, res, next) => {
-    const {projectUrl} = req.query; // req.query or req.params
-    const result = await Projects.destroy({where: { url: projectUrl}});
+exports.deleteProject = async (req, res, next) => {
+    const { projectUrl } = req.query; // req.query or req.params
+    const result = await Projects.destroy({ where: { url: projectUrl } });
 
     if (!result) {
         return next();
     }
-    
+
     res.status(200).send("Proyecto eliminado correctamente.");
 }
