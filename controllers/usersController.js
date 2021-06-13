@@ -6,7 +6,7 @@ exports.formNewAccount = (req, res) => {
     });
 }
 
-exports.newAccount = async (req, res, next) => {
+exports.newAccount = async (req, res) => {
     const { email, password } = req.body;
     try {
         await Users.create({ email, password })
@@ -16,6 +16,29 @@ exports.newAccount = async (req, res, next) => {
         req.flash("error", error.errors.map(error=>error.message))
         res.render("newAccount", {
             pageName: "Crear cuenta en Uptask",
+            messages: req.flash(),
+            email,
+            password
+        });
+    }
+}
+
+exports.formLogin = (req, res) => {
+    res.render("login", {
+        pageName: "Iniciar sesión en Uptask"
+    });
+}
+
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        console.log(email);
+        console.log(password);
+
+    } catch (error) {
+        req.flash("error", error.errors.map(error=>error.message))
+        res.render("login", {
+            pageName: "Iniciar sesión en Uptask",
             messages: req.flash(),
             email,
             password

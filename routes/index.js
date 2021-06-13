@@ -47,6 +47,10 @@ module.exports = function () {
     router.get("/new-account", usersController.formNewAccount);
     router.post("/new-account", usersController.newAccount);
 
+    // login
+    router.get("/login", usersController.formLogin);
+    router.post("/login", usersController.login);
+
 
 
     return router;
