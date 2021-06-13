@@ -4,9 +4,10 @@ const router = express.Router();
 // import controller
 const projectController = require("../controllers/projectController");
 const taskController = require("../controllers/taskController");
+const usersController = require("../controllers/usersController");
 
 // import express validator
-const { body } = require("express-validator/check");
+const { body } = require("express-validator");
 
 module.exports = function () {
     // home route
@@ -41,6 +42,10 @@ module.exports = function () {
 
     // Delete task
     router.delete("/tasks/:id", taskController.deleteTask)
+
+    // create new account
+    router.get("/new-account", usersController.formNewAccount);
+    router.post("/new-account", usersController.newAccount);
 
 
 
