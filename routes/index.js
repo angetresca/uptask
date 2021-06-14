@@ -79,6 +79,12 @@ module.exports = function () {
     // logout
     router.get("/logout", authController.logout);
 
+    // restore password
+    router.get("/restore-password", usersController.formRestorePassword);
+    router.post("/restore-password", authController.sendToken);
+    router.get("/restore-password/:token", authController.validateToken);
+    router.post("/restore-password/:token", authController.updatePassword);
+
     return router;
 }
 

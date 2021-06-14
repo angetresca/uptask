@@ -30,3 +30,9 @@ exports.formLogin = (req, res) => {
         error
     });
 }
+
+exports.formRestorePassword = (req, res) => {
+    res.render("restorePassword", {
+        pageName: "Reestablecer contraseña"
+    });
+}
