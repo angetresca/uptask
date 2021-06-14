@@ -63,3 +63,5 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/", routes());
+
+require("./handlers/email");
