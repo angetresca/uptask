@@ -5,6 +5,8 @@ html(lang="en")
     body.login
         .contenedor-formulario
             h1 Inicia sesión en Uptastk
+            if error
+                p.alerta.error= error
 
             form#fomulario.caja.caja-login(method="POST" action="login")
                 .campo
@@ -16,4 +18,4 @@ html(lang="en")
                 .campo.enviar
                     input.boton(type="submit", value="Iniciar sesión")
                 .campo
-                    a(href="/login") Aún no tienes cuenta? Crea una gratis.
+                    a(href="/new-account") Aún no tienes cuenta? Crea una gratis.

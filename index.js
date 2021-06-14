@@ -6,6 +6,7 @@ const helpers = require("./helpers");
 const flash = require("connect-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const passport = require("./config/passport");
 
 // DB connection
 const db = require("./config/db");
@@ -47,6 +48,10 @@ app.use(session({
     resave: false, 
     saveUninitialized: false 
 }));
+
+// auth
+app.use(passport.initialize());
+app.use(passport.session());
 
 // vardump
 app.use((req, res, next) => {

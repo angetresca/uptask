@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../config/db");
 const Projects = require("./Projects");
 const bcrypt = require("bcrypt-nodejs");
+const passport = require("passport");
 
 const Users = db.define("users", {
     id: {
@@ -41,6 +42,12 @@ const Users = db.define("users", {
         }
     }
 });
-Users.hasMany(Projects);
+
+// custom methods
+Users.prototype.validatePassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+}
+
+//Users.hasMany(Projects);
 
 module.exports = Users;
