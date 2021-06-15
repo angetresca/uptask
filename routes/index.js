@@ -85,6 +85,9 @@ module.exports = function () {
     router.get("/restore-password/:token", authController.validateToken);
     router.post("/restore-password/:token", authController.updatePassword);
 
+    // confrim account
+    router.get("/confirm/:email", usersController.confirmAccount);
+
     return router;
 }
 
