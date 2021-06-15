@@ -53,7 +53,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// vardump
+
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
     res.locals.messages = req.flash();
@@ -63,5 +63,3 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/", routes());
-
-require("./handlers/email");
