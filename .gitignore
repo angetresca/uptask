@@ -103,5 +103,8 @@ dist
 # TernJS port file
 .tern-port
 
-# VS Code
+# VS Code Mac
 .DS_Store
+
+# environment variables
+variables.env
